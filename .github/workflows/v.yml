@@ -2,11 +2,13 @@ name: node
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 */5 * * *"  # every 5 hours
 
 jobs:
   vpn:
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 300
 
     steps:
       - uses: actions/checkout@v4
@@ -25,8 +27,7 @@ jobs:
           sudo tailscale up \
             --authkey=${{ secrets.TAILSCALE_AUTHKEY }} \
             --hostname=github-runner \
-            --advertise-exit-node \
-            --ssh
+            --advertise-exit-node
 
       - name: Verify
         run: |
