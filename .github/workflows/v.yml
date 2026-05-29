@@ -3,12 +3,12 @@ name: node
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */5 * * *"  # every 5 hours
+    - cron: "0 */5 * * *"  # every 5 hour
 
 jobs:
   vpn:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 1800
 
     steps:
       - uses: actions/checkout@v4
