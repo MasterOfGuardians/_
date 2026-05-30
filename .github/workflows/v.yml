@@ -1,5 +1,8 @@
 name: node
 
+on:
+  workflow_dispatch:
+
 jobs:
   vpn:
     runs-on: ubuntu-latest
