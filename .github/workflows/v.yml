@@ -27,11 +27,6 @@ jobs:
             --hostname=github-runner \
             --advertise-exit-node
 
-      - name: Verify
-        run: |
-          tailscale status
-          tailscale ip -4
-
       - name: Keep alive
         run: |
           for i in {1..300}; do
