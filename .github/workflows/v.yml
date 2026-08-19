@@ -4,26 +4,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  vpn:
+  job_1:
     runs-on: ubuntu-latest
     timeout-minutes: 1800
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Tailscale
-        run: |
-          curl -fsSL https://tailscale.com/install.sh | sh
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
       - name: Enable IP forwarding
         run: |
           sudo sysctl -w net.ipv4.ip_forward=1
           sudo sysctl -w net.ipv6.conf.all.forwarding=1
 
-      - name: Connect and advertise exit node
+      - name: Advertise exit node
         run: |
-          sudo tailscale up \
-            --authkey=${{ secrets.TAILSCALE_AUTHKEY }} \
+          sudo tailscale set \
             --hostname=github-runner \
             --advertise-exit-node
 
